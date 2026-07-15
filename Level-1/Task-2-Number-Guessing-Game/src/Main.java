@@ -8,16 +8,6 @@ import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
-/**
- * Entry point for the Number Guessing Game console application.
- * <p>
- * Handles user interface, input/output, exception handling, and session statistics.
- * Game logic is delegated to {@link NumberGuessingGame}; validation to {@link InputValidator}.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
 public class Main {
 
   private static final String APP_TITLE = "NUMBER GUESSING GAME";
@@ -38,28 +28,17 @@ public class Main {
   private final GameStatistics statistics;
   private final Scanner scanner;
 
-  /**
-   * Constructs the application with initialized dependencies.
-   */
   public Main() {
     this.game = new NumberGuessingGame();
     this.statistics = new GameStatistics();
     this.scanner = new Scanner(System.in);
   }
 
-  /**
-   * Application entry point.
-   *
-   * @param args command-line arguments (not used)
-   */
   public static void main(String[] args) {
     Main application = new Main();
     application.run();
   }
 
-  /**
-   * Starts the game application loop.
-   */
   public void run() {
     displayWelcomeBanner();
     boolean playing = true;
@@ -74,10 +53,6 @@ public class Main {
     displayGoodbyeMessage();
     scanner.close();
   }
-
-  /**
-   * Displays the welcome banner.
-   */
   private void displayWelcomeBanner() {
     System.out.println();
     System.out.println(colorize(BORDER_LONG, CYAN));
@@ -88,11 +63,6 @@ public class Main {
     System.out.println();
   }
 
-  /**
-   * Prompts the user to select a difficulty level.
-   *
-   * @return the selected {@link Difficulty}
-   */
   private Difficulty selectDifficulty() {
     System.out.println(colorize("Difficulty:", BOLD));
     System.out.println("  1. Easy (1-50)");
@@ -128,11 +98,6 @@ public class Main {
     }
   }
 
-  /**
-   * Plays a single round of the guessing game.
-   *
-   * @param difficulty the selected difficulty level
-   */
   private void playRound(Difficulty difficulty) {
     game.startNewGame(difficulty);
 
@@ -145,11 +110,7 @@ public class Main {
     finalizeRound();
   }
 
-  /**
-   * Reads and validates a guess from the user.
-   *
-   * @return a valid guess within the current difficulty range
-   */
+
   private int readGuess() {
     while (true) {
       try {
@@ -172,11 +133,6 @@ public class Main {
     }
   }
 
-  /**
-   * Displays feedback after a guess is evaluated.
-   *
-   * @param result the outcome of the guess
-   */
   private void displayGuessFeedback(GuessResult result) {
     System.out.println();
 
@@ -203,9 +159,7 @@ public class Main {
     System.out.println();
   }
 
-  /**
-   * Updates statistics and displays the round outcome when the game ends.
-   */
+
   private void finalizeRound() {
     if (game.isWon()) {
       statistics.recordWin(game.getAttemptsUsed());
@@ -218,11 +172,6 @@ public class Main {
     }
   }
 
-  /**
-   * Prompts whether the player wants to play another round.
-   *
-   * @return {@code true} to play again; {@code false} to exit
-   */
   private boolean promptPlayAgain() {
     while (true) {
       System.out.print(colorize("Play again? (Y/N): ", YELLOW));
@@ -242,9 +191,7 @@ public class Main {
     }
   }
 
-  /**
-   * Displays session statistics before the application exits.
-   */
+
   private void displayStatistics() {
     System.out.println(colorize(BORDER_SHORT, CYAN));
     System.out.println(colorize("Game Statistics", BOLD + CYAN));
@@ -265,49 +212,27 @@ public class Main {
     System.out.println();
   }
 
-  /**
-   * Displays the goodbye message.
-   */
+
   private void displayGoodbyeMessage() {
     System.out.println(colorize("Thank you for playing Number Guessing Game!", GREEN));
     System.out.println(colorize("Goodbye! Keep practicing and good luck next time.", GREEN));
     System.out.println();
   }
 
-  /**
-   * Prints an error message to the console.
-   *
-   * @param message the error message
-   */
+
   private void printError(String message) {
     System.out.println(colorize("Error: " + message, RED));
   }
 
-  /**
-   * Clears invalid input from the scanner buffer after an input mismatch.
-   */
   private void clearInvalidInput() {
     scanner.nextLine();
   }
 
-  /**
-   * Applies ANSI color codes when the terminal supports them.
-   *
-   * @param text  the text to colorize
-   * @param color the ANSI color prefix
-   * @return colorized or plain text
-   */
   private String colorize(String text, String color) {
     return color + text + RESET;
   }
 
-  /**
-   * Centers text within a given width.
-   *
-   * @param text  the text to center
-   * @param width the total line width
-   * @return centered text
-   */
+
   private String centerText(String text, int width) {
     int padding = Math.max(0, (width - text.length()) / 2);
     return " ".repeat(padding) + text;

@@ -12,15 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-/**
- * Entry point for the Simple Banking Application console system.
- * <p>
- * Handles all user interaction. Banking operations are delegated to {@link BankingService}.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
+
 public class Main {
 
     private static final int MENU_CREATE = 1;
@@ -48,27 +40,18 @@ public class Main {
     private final BankingService bankingService;
     private final Scanner scanner;
 
-    /**
-     * Constructs the application with initialized dependencies.
-     */
+
     public Main() {
         this.bankingService = new BankingService();
         this.scanner = new Scanner(System.in);
     }
 
-    /**
-     * Application entry point.
-     *
-     * @param args command-line arguments (not used)
-     */
+
     public static void main(String[] args) {
         Main application = new Main();
         application.run();
     }
 
-    /**
-     * Starts the main application loop.
-     */
     public void run() {
         displayWelcomeBanner();
         boolean running = true;
@@ -95,9 +78,7 @@ public class Main {
         scanner.close();
     }
 
-    /**
-     * Displays the welcome banner.
-     */
+
     private void displayWelcomeBanner() {
         System.out.println();
         System.out.println(colorize(BORDER, CYAN));
@@ -108,9 +89,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Displays the main menu.
-     */
+
     private void displayMenu() {
         System.out.println(colorize(BORDER, CYAN));
         System.out.println(colorize("      " + APP_TITLE, BOLD));
@@ -129,11 +108,7 @@ public class Main {
         System.out.print(colorize("Choose Option: ", YELLOW));
     }
 
-    /**
-     * Reads and validates a menu option.
-     *
-     * @return valid menu option
-     */
+
     private int readMenuOption() {
         while (true) {
             try {
@@ -154,9 +129,7 @@ public class Main {
         }
     }
 
-    /**
-     * Handles creating a new bank account.
-     */
+
     private void handleCreateAccount() {
         System.out.println();
         System.out.println(colorize("--- Create Bank Account ---", BOLD));
@@ -185,9 +158,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles depositing money into an account.
-     */
     private void handleDeposit() {
         System.out.println();
         System.out.println(colorize("--- Deposit Money ---", BOLD));
@@ -215,9 +185,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles withdrawing money from an account.
-     */
+
     private void handleWithdraw() {
         System.out.println();
         System.out.println(colorize("--- Withdraw Money ---", BOLD));
@@ -247,9 +215,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles transferring money between accounts.
-     */
     private void handleTransfer() {
         System.out.println();
         System.out.println(colorize("--- Transfer Money ---", BOLD));
@@ -286,9 +251,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles checking account balance and details.
-     */
+
     private void handleCheckBalance() {
         System.out.println();
         System.out.println(colorize("--- Check Balance ---", BOLD));
@@ -311,9 +274,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles viewing all accounts in table format.
-     */
     private void handleViewAllAccounts() {
         System.out.println();
         System.out.println(colorize("--- View All Accounts ---", BOLD));
@@ -331,9 +291,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles viewing transaction history.
-     */
+
     private void handleTransactionHistory() {
         System.out.println();
         System.out.println(colorize("--- Transaction History ---", BOLD));
@@ -367,9 +325,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles deleting an account.
-     */
+
     private void handleDeleteAccount() {
         System.out.println();
         System.out.println(colorize("--- Delete Account ---", BOLD));
@@ -407,11 +363,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Displays a single account's full details.
-     *
-     * @param account the account to display
-     */
+
     private void displayAccountDetails(BankAccount account) {
         System.out.println(colorize("--- Account Details ---", BOLD));
         System.out.printf("Account Number  : %s%n", account.getAccountNumber());
@@ -423,11 +375,6 @@ public class Main {
         System.out.printf("Created Date    : %s%n", account.getCreatedDate());
     }
 
-    /**
-     * Displays accounts in a formatted table.
-     *
-     * @param accounts list of accounts
-     */
     private void displayAccountTable(List<BankAccount> accounts) {
         String line = "-".repeat(120);
         System.out.println(line);
@@ -451,12 +398,6 @@ public class Main {
         System.out.println(line);
     }
 
-    /**
-     * Reads a sub-menu option within a range.
-     *
-     * @param maxOption maximum valid option
-     * @return valid option
-     */
     private int readSubMenuOption(int maxOption) {
         while (true) {
             try {
@@ -475,12 +416,6 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a non-empty string.
-     *
-     * @param prompt input prompt
-     * @return non-empty string
-     */
     private String readNonEmptyString(String prompt) {
         while (true) {
             System.out.print(colorize(prompt, YELLOW));
@@ -492,11 +427,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a valid email address.
-     *
-     * @return valid email
-     */
+
     private String readValidEmail() {
         while (true) {
             System.out.print(colorize("Email: ", YELLOW));
@@ -508,11 +439,6 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a valid 10-digit phone number.
-     *
-     * @return valid phone number
-     */
     private String readValidPhone() {
         while (true) {
             System.out.print(colorize("Phone Number (10 digits): ", YELLOW));
@@ -525,11 +451,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a valid account type.
-     *
-     * @return account type
-     */
+
     private AccountType readAccountType() {
         while (true) {
             System.out.print(colorize("Account Type (Savings/Current): ", YELLOW));
@@ -542,12 +464,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a positive monetary amount.
-     *
-     * @param prompt input prompt
-     * @return positive amount
-     */
+
     private double readPositiveAmount(String prompt) {
         while (true) {
             try {
@@ -565,12 +482,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a non-negative monetary amount (for initial balance).
-     *
-     * @param prompt input prompt
-     * @return non-negative amount
-     */
+
     private double readNonNegativeAmount(String prompt) {
         while (true) {
             try {
@@ -588,12 +500,6 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a Y/N confirmation.
-     *
-     * @param prompt confirmation prompt
-     * @return {@code true} if confirmed
-     */
     private boolean readConfirmation(String prompt) {
         while (true) {
             System.out.print(colorize(prompt, YELLOW));
@@ -606,13 +512,7 @@ public class Main {
         }
     }
 
-    /**
-     * Truncates a string for table display.
-     *
-     * @param value     string value
-     * @param maxLength max length
-     * @return truncated string
-     */
+
     private String truncate(String value, int maxLength) {
         if (value.length() <= maxLength) {
             return value;
@@ -620,9 +520,6 @@ public class Main {
         return value.substring(0, maxLength - 2) + "..";
     }
 
-    /**
-     * Displays the goodbye message.
-     */
     private void displayGoodbyeMessage() {
         System.out.println();
         System.out.println(colorize(BORDER, CYAN));
@@ -632,58 +529,27 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Prints a success message.
-     *
-     * @param message success text
-     */
     private void printSuccess(String message) {
         System.out.println(colorize(message, BOLD + GREEN));
     }
 
-    /**
-     * Prints an error message.
-     *
-     * @param message error text
-     */
     private void printError(String message) {
         System.out.println(colorize("Error: " + message, RED));
     }
 
-    /**
-     * Prints an informational message.
-     *
-     * @param message info text
-     */
+
     private void printInfo(String message) {
         System.out.println(colorize(message, CYAN));
     }
 
-    /**
-     * Clears invalid scanner input.
-     */
     private void clearInvalidInput() {
         scanner.nextLine();
     }
 
-    /**
-     * Applies ANSI color when supported.
-     *
-     * @param text  text to colorize
-     * @param color ANSI color code
-     * @return colorized text
-     */
     private String colorize(String text, String color) {
         return color + text + RESET;
     }
 
-    /**
-     * Centers text within a given width.
-     *
-     * @param text  text to center
-     * @param width total width
-     * @return centered text
-     */
     private String centerText(String text, int width) {
         int padding = Math.max(0, (width - text.length()) / 2);
         return " ".repeat(padding) + text;

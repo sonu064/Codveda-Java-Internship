@@ -16,16 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service layer for banking operations and account management.
- * <p>
- * Manages accounts and transactions in memory using {@link ArrayList}.
- * Contains no console I/O — single responsibility for business logic.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
+
 public class BankingService {
 
     private static final String CURRENCY_SYMBOL = "\u20B9";
@@ -34,27 +25,13 @@ public class BankingService {
     private final List<Transaction> transactions;
     private int transactionCounter;
 
-    /**
-     * Creates a new banking service with empty repositories.
-     */
+
     public BankingService() {
         this.accounts = new ArrayList<>();
         this.transactions = new ArrayList<>();
         this.transactionCounter = 1;
     }
 
-    /**
-     * Creates a new bank account with an auto-generated account number.
-     *
-     * @param accountHolderName name of the holder
-     * @param email             email address
-     * @param phoneNumber       phone number
-     * @param accountType       savings or current
-     * @param initialBalance    opening balance
-     * @return the created account
-     * @throws InvalidAmountException   if initial balance is negative
-     * @throws IllegalArgumentException if email is duplicate
-     */
     public BankAccount createAccount(String accountHolderName, String email, String phoneNumber,
                                      AccountType accountType, double initialBalance)
             throws InvalidAmountException {
@@ -85,15 +62,6 @@ public class BankingService {
         return account;
     }
 
-    /**
-     * Deposits money into the specified account.
-     *
-     * @param accountNumber target account
-     * @param amount        deposit amount
-     * @return updated account
-     * @throws AccountNotFoundException if account not found
-     * @throws InvalidAmountException   if amount is invalid
-     */
     public BankAccount deposit(String accountNumber, double amount)
             throws AccountNotFoundException, InvalidAmountException {
         validateAmount(amount);
@@ -104,16 +72,6 @@ public class BankingService {
         return account;
     }
 
-    /**
-     * Withdraws money from the specified account.
-     *
-     * @param accountNumber source account
-     * @param amount        withdrawal amount
-     * @return updated account
-     * @throws AccountNotFoundException      if account not found
-     * @throws InvalidAmountException        if amount is invalid
-     * @throws InsufficientBalanceException  if balance is insufficient
-     */
     public BankAccount withdraw(String accountNumber, double amount)
             throws AccountNotFoundException, InvalidAmountException, InsufficientBalanceException {
         validateAmount(amount);
@@ -130,17 +88,7 @@ public class BankingService {
         return account;
     }
 
-    /**
-     * Transfers money between two accounts.
-     *
-     * @param fromAccountNumber sender account
-     * @param toAccountNumber   receiver account
-     * @param amount            transfer amount
-     * @throws AccountNotFoundException      if either account not found
-     * @throws InvalidAmountException        if amount is invalid
-     * @throws InsufficientBalanceException  if sender has insufficient balance
-     * @throws IllegalArgumentException      if transferring to the same account
-     */
+
     public void transfer(String fromAccountNumber, String toAccountNumber, double amount)
             throws AccountNotFoundException, InvalidAmountException,
             InsufficientBalanceException {
@@ -172,33 +120,17 @@ public class BankingService {
                 "Received " + formatCurrency(amount) + " from " + fromAccountNumber);
     }
 
-    /**
-     * Finds an account by account number.
-     *
-     * @param accountNumber the account number
-     * @return the matching account
-     * @throws AccountNotFoundException if not found
-     */
+
     public BankAccount findAccount(String accountNumber) throws AccountNotFoundException {
         return findAccountOptional(accountNumber)
                 .orElseThrow(() -> AccountNotFoundException.forAccountNumber(accountNumber));
     }
 
-    /**
-     * Returns all bank accounts.
-     *
-     * @return unmodifiable list of accounts
-     */
     public List<BankAccount> getAllAccounts() {
         return Collections.unmodifiableList(accounts);
     }
 
-    /**
-     * Returns all transactions, optionally filtered by account number.
-     *
-     * @param accountNumber account to filter by, or {@code null} for all
-     * @return matching transactions
-     */
+
     public List<Transaction> getTransactionHistory(String accountNumber) {
         if (accountNumber == null || accountNumber.isBlank()) {
             return Collections.unmodifiableList(transactions);
@@ -216,69 +148,34 @@ public class BankingService {
         return Collections.unmodifiableList(filtered);
     }
 
-    /**
-     * Deletes an account by account number.
-     *
-     * @param accountNumber the account to delete
-     * @return the deleted account
-     * @throws AccountNotFoundException if not found
-     */
+
     public BankAccount deleteAccount(String accountNumber) throws AccountNotFoundException {
         BankAccount account = findAccount(accountNumber);
         accounts.remove(account);
         return account;
     }
 
-    /**
-     * Checks whether any accounts exist.
-     *
-     * @return {@code true} if accounts exist
-     */
     public boolean hasAccounts() {
         return !accounts.isEmpty();
     }
 
-    /**
-     * Returns the total number of accounts.
-     *
-     * @return account count
-     */
+
     public int getAccountCount() {
         return accounts.size();
     }
 
-    /**
-     * Formats an amount with the currency symbol.
-     *
-     * @param amount the amount
-     * @return formatted currency string
-     */
+
     public static String formatCurrency(double amount) {
         return CURRENCY_SYMBOL + String.format("%.2f", amount);
     }
 
-    /**
-     * Validates that an amount is positive.
-     *
-     * @param amount the amount to validate
-     * @throws InvalidAmountException if amount is not positive
-     */
     private void validateAmount(double amount) throws InvalidAmountException {
         if (amount <= 0) {
             throw InvalidAmountException.nonPositive(amount);
         }
     }
 
-    /**
-     * Records a transaction in the history.
-     *
-     * @param type                 transaction type
-     * @param accountNumber        primary account
-     * @param relatedAccountNumber related account for transfers
-     * @param amount               transaction amount
-     * @param balanceAfter         balance after transaction
-     * @param description          description
-     */
+
     private void recordTransaction(TransactionType type, String accountNumber,
                                  String relatedAccountNumber, double amount,
                                  double balanceAfter, String description) {
@@ -289,12 +186,7 @@ public class BankingService {
         transactions.add(transaction);
     }
 
-    /**
-     * Finds an account optionally.
-     *
-     * @param accountNumber account number
-     * @return optional account
-     */
+
     private Optional<BankAccount> findAccountOptional(String accountNumber) {
         if (accountNumber == null || accountNumber.isBlank()) {
             return Optional.empty();
@@ -308,12 +200,6 @@ public class BankingService {
         return Optional.empty();
     }
 
-    /**
-     * Checks for duplicate email addresses.
-     *
-     * @param email email to check
-     * @return {@code true} if duplicate exists
-     */
     private boolean isEmailDuplicate(String email) {
         String normalized = email.trim().toLowerCase();
         for (BankAccount account : accounts) {

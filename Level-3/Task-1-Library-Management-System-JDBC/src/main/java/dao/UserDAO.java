@@ -13,12 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Data Access Object for user-related database operations.
- *
- * @author Sonu Singh
- * @version 1.0
- */
+
 public class UserDAO {
 
     private static final String INSERT_USER = """
@@ -35,13 +30,6 @@ public class UserDAO {
 
     private static final String EXISTS_BY_EMAIL = "SELECT 1 FROM users WHERE email = ?";
 
-    /**
-     * Inserts a new user into the database.
-     *
-     * @param user the user to insert
-     * @return the generated user ID
-     * @throws DatabaseException if the insert fails
-     */
     public int insert(User user) throws DatabaseException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS)) {
@@ -66,12 +54,7 @@ public class UserDAO {
         }
     }
 
-    /**
-     * Returns all users from the database.
-     *
-     * @return list of users
-     * @throws DatabaseException if the query fails
-     */
+
     public List<User> findAll() throws DatabaseException {
         List<User> users = new ArrayList<>();
         try (Connection connection = DBConnection.getConnection();
@@ -87,13 +70,7 @@ public class UserDAO {
         }
     }
 
-    /**
-     * Finds a user by ID.
-     *
-     * @param userId the user ID
-     * @return optional user
-     * @throws DatabaseException if the query fails
-     */
+
     public Optional<User> findById(int userId) throws DatabaseException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
@@ -110,13 +87,7 @@ public class UserDAO {
         }
     }
 
-    /**
-     * Checks whether an email already exists.
-     *
-     * @param email the email to check
-     * @return {@code true} if duplicate exists
-     * @throws DatabaseException if the query fails
-     */
+
     public boolean existsByEmail(String email) throws DatabaseException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(EXISTS_BY_EMAIL)) {
@@ -130,13 +101,6 @@ public class UserDAO {
         }
     }
 
-    /**
-     * Maps a ResultSet row to a User object.
-     *
-     * @param resultSet the result set
-     * @return mapped user
-     * @throws SQLException if column access fails
-     */
     private User mapRow(ResultSet resultSet) throws SQLException {
         return new User(
                 resultSet.getInt("user_id"),
@@ -145,13 +109,6 @@ public class UserDAO {
                 resultSet.getString("phone"));
     }
 
-    /**
-     * Maps SQLException to DatabaseException with duplicate detection.
-     *
-     * @param exception the SQL exception
-     * @param operation operation description
-     * @return mapped database exception
-     */
     private DatabaseException mapSqlException(SQLException exception, String operation) {
         if (exception.getMessage() != null && exception.getMessage().contains("Duplicate")) {
             return new DatabaseException("Duplicate email address detected.", exception);

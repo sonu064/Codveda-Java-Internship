@@ -5,18 +5,7 @@ import util.InputValidator;
 
 import java.util.Scanner;
 
-/**
- * Entry point and console UI for the Binary Search Tree application.
- * <p>
- * Wires the application together via constructor injection
- * ({@code Scanner -> InputValidator}, {@code BinarySearchTree -> TreeService})
- * and runs the menu loop. All tree logic lives in {@link BinarySearchTree};
- * all messaging lives in {@link TreeService}; this class only orchestrates.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
+
 public class Main {
 
     private static final int OPTION_INSERT = 1;
@@ -35,22 +24,12 @@ public class Main {
     private final TreeService treeService;
     private final InputValidator inputValidator;
 
-    /**
-     * Wires the application's collaborators.
-     *
-     * @param treeService    the service managing the BST
-     * @param inputValidator the validated console input reader
-     */
+
     public Main(TreeService treeService, InputValidator inputValidator) {
         this.treeService = treeService;
         this.inputValidator = inputValidator;
     }
 
-    /**
-     * Application entry point.
-     *
-     * @param args command-line arguments (unused)
-     */
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             TreeService treeService = new TreeService(new BinarySearchTree());
@@ -60,9 +39,6 @@ public class Main {
         }
     }
 
-    /**
-     * Runs the menu loop until the user chooses Exit.
-     */
     public void run() {
         boolean running = true;
 
@@ -74,18 +50,11 @@ public class Main {
             try {
                 running = handleChoice(choice);
             } catch (Exception exception) {
-                // Safety net: no user action should ever crash the application.
                 ConsoleHelper.printError("Unexpected error: " + exception.getMessage());
             }
         }
     }
 
-    /**
-     * Dispatches one validated menu choice.
-     *
-     * @param choice the selected option
-     * @return {@code false} when the user chose Exit; {@code true} otherwise
-     */
     private boolean handleChoice(int choice) {
         switch (choice) {
             case OPTION_INSERT -> {

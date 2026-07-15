@@ -9,15 +9,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
- * Entry point for the Employee Management System console application.
- * <p>
- * Handles all user interaction. Business logic is delegated to {@link EmployeeService}.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
 public class Main {
 
     private static final int MENU_ADD = 1;
@@ -45,27 +36,19 @@ public class Main {
     private final EmployeeService employeeService;
     private final Scanner scanner;
 
-    /**
-     * Constructs the application with initialized dependencies.
-     */
+
     public Main() {
         this.employeeService = new EmployeeService();
         this.scanner = new Scanner(System.in);
     }
 
-    /**
-     * Application entry point.
-     *
-     * @param args command-line arguments (not used)
-     */
+
     public static void main(String[] args) {
         Main application = new Main();
         application.run();
     }
 
-    /**
-     * Starts the main application loop.
-     */
+
     public void run() {
         displayWelcomeBanner();
         boolean running = true;
@@ -90,9 +73,6 @@ public class Main {
         scanner.close();
     }
 
-    /**
-     * Displays the welcome banner.
-     */
     private void displayWelcomeBanner() {
         System.out.println();
         System.out.println(colorize(BORDER, CYAN));
@@ -102,9 +82,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Displays the main menu.
-     */
     private void displayMenu() {
         System.out.println(colorize(BORDER, CYAN));
         System.out.println(colorize("  " + APP_TITLE, BOLD));
@@ -121,11 +98,7 @@ public class Main {
         System.out.print(colorize("Choose Option: ", YELLOW));
     }
 
-    /**
-     * Reads and validates a menu option.
-     *
-     * @return valid menu option
-     */
+
     private int readMenuOption() {
         while (true) {
             try {
@@ -146,9 +119,7 @@ public class Main {
         }
     }
 
-    /**
-     * Handles adding a new employee.
-     */
+
     private void handleAddEmployee() {
         System.out.println();
         System.out.println(colorize("--- Add Employee ---", BOLD));
@@ -177,9 +148,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles viewing all employees in table format.
-     */
     private void handleViewEmployees() {
         System.out.println();
         System.out.println(colorize("--- View Employees ---", BOLD));
@@ -198,9 +166,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles employee search with sub-options.
-     */
+
     private void handleSearchEmployee() {
         System.out.println();
         System.out.println(colorize("--- Search Employee ---", BOLD));
@@ -243,11 +209,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Reads a valid search sub-menu option.
-     *
-     * @return search option 1-3
-     */
+
     private int readSearchOption() {
         while (true) {
             try {
@@ -266,9 +228,7 @@ public class Main {
         }
     }
 
-    /**
-     * Handles updating an existing employee.
-     */
+
     private void handleUpdateEmployee() {
         System.out.println();
         System.out.println(colorize("--- Update Employee ---", BOLD));
@@ -314,9 +274,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles deleting an employee with confirmation.
-     */
     private void handleDeleteEmployee() {
         System.out.println();
         System.out.println(colorize("--- Delete Employee ---", BOLD));
@@ -350,9 +307,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Displays workforce statistics.
-     */
     private void handleStatistics() {
         System.out.println();
         System.out.println(colorize("--- Statistics ---", BOLD));
@@ -379,11 +333,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Displays employees in a formatted table.
-     *
-     * @param employees list of employees to display
-     */
+
     private void displayEmployeeTable(List<Employee> employees) {
         String horizontalLine = "-".repeat(140);
         System.out.println(horizontalLine);
@@ -411,13 +361,7 @@ public class Main {
         System.out.println(horizontalLine);
     }
 
-    /**
-     * Truncates a string to a maximum length for table display.
-     *
-     * @param value     the string value
-     * @param maxLength maximum display length
-     * @return truncated string
-     */
+
     private String truncate(String value, int maxLength) {
         if (value.length() <= maxLength) {
             return value;
@@ -425,12 +369,7 @@ public class Main {
         return value.substring(0, maxLength - 2) + "..";
     }
 
-    /**
-     * Reads a non-empty string from the user.
-     *
-     * @param prompt the input prompt
-     * @return non-empty string
-     */
+
     private String readNonEmptyString(String prompt) {
         while (true) {
             System.out.print(colorize(prompt, YELLOW));
@@ -444,22 +383,13 @@ public class Main {
         }
     }
 
-    /**
-     * Reads an optional string (blank allowed).
-     *
-     * @param prompt the input prompt
-     * @return input string, may be blank
-     */
+  
     private String readOptionalString(String prompt) {
         System.out.print(colorize(prompt, YELLOW));
         return scanner.nextLine().trim();
     }
 
-    /**
-     * Reads a valid age from the user.
-     *
-     * @return valid age
-     */
+
     private int readValidAge() {
         while (true) {
             try {
@@ -481,11 +411,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a valid gender from the user.
-     *
-     * @return normalized gender
-     */
+
     private String readValidGender() {
         while (true) {
             System.out.print(colorize("Gender (Male/Female/Other): ", YELLOW));
@@ -499,11 +425,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a valid non-negative salary.
-     *
-     * @return valid salary
-     */
+
     private double readValidSalary() {
         while (true) {
             try {
@@ -523,11 +445,6 @@ public class Main {
         }
     }
 
-    /**
-     * Reads an optional salary (-1 to keep current).
-     *
-     * @return new salary or {@link #KEEP_SALARY}
-     */
     private double readOptionalSalary() {
         while (true) {
             try {
@@ -547,12 +464,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a valid email, checking for duplicates.
-     *
-     * @param excludeId employee ID to exclude during update (null for add)
-     * @return valid email
-     */
+
     private String readValidEmail(String excludeId) {
         while (true) {
             System.out.print(colorize("Email: ", YELLOW));
@@ -567,12 +479,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reads an optional email (blank to keep current).
-     *
-     * @param employeeId current employee ID for duplicate check context
-     * @return email or blank
-     */
+
     private String readOptionalEmail(String employeeId) {
         while (true) {
             System.out.print(colorize("New Email (blank to keep): ", YELLOW));
@@ -591,12 +498,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a valid 10-digit phone number.
-     *
-     * @param excludeId unused — duplicate check done in service
-     * @return valid phone number
-     */
+
     private String readValidPhone(String excludeId) {
         while (true) {
             System.out.print(colorize("Phone Number (10 digits): ", YELLOW));
@@ -612,12 +514,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reads an optional phone number (blank to keep current).
-     *
-     * @param employeeId current employee ID
-     * @return phone or blank
-     */
+
     private String readOptionalPhone(String employeeId) {
         while (true) {
             System.out.print(colorize("New Phone (blank to keep): ", YELLOW));
@@ -637,12 +534,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reads a Y/N confirmation from the user.
-     *
-     * @param prompt the confirmation prompt
-     * @return {@code true} if user confirms
-     */
+
     private boolean readConfirmation(String prompt) {
         while (true) {
             System.out.print(colorize(prompt, YELLOW));
@@ -657,9 +549,6 @@ public class Main {
         }
     }
 
-    /**
-     * Displays the goodbye message.
-     */
     private void displayGoodbyeMessage() {
         System.out.println();
         System.out.println(colorize(BORDER, CYAN));
@@ -669,58 +558,28 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Prints a success message.
-     *
-     * @param message success text
-     */
+
     private void printSuccess(String message) {
         System.out.println(colorize(message, BOLD + GREEN));
     }
 
-    /**
-     * Prints an error message.
-     *
-     * @param message error text
-     */
+
     private void printError(String message) {
         System.out.println(colorize("Error: " + message, RED));
     }
 
-    /**
-     * Prints an informational message.
-     *
-     * @param message info text
-     */
     private void printInfo(String message) {
         System.out.println(colorize(message, CYAN));
     }
 
-    /**
-     * Clears invalid scanner input.
-     */
     private void clearInvalidInput() {
         scanner.nextLine();
     }
 
-    /**
-     * Applies ANSI color when supported.
-     *
-     * @param text  text to colorize
-     * @param color ANSI color code
-     * @return colorized text
-     */
     private String colorize(String text, String color) {
         return color + text + RESET;
     }
 
-    /**
-     * Centers text within a given width.
-     *
-     * @param text  text to center
-     * @param width total width
-     * @return centered text
-     */
     private String centerText(String text, int width) {
         int padding = Math.max(0, (width - text.length()) / 2);
         return " ".repeat(padding) + text;

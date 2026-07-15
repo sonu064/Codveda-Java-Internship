@@ -128,8 +128,8 @@ public class Main {
         System.out.println();
     }
 
-    /**
-vate void displayMenu() {
+
+    private void displayMenu() {
         System.out.println(colorize(BORDER, CYAN));
         System.out.println(colorize("  " + APP_TITLE, BOLD));
         System.out.println(colorize(BORDER, CYAN));
@@ -143,11 +143,7 @@ vate void displayMenu() {
         System.out.print(colorize("Choose Option: ", YELLOW));
     }
 
-    /**
-     * Reads and validates a menu option.
-     *
-     * @return valid menu option
-     */
+
     private int readMenuOption() {
         while (true) {
             try {
@@ -168,9 +164,7 @@ vate void displayMenu() {
         }
     }
 
-    /**
-     * Handles reading the input file.
-     */
+
     private void handleReadFile() {
         System.out.println();
         System.out.println(colorize("Reading File...", YELLOW));
@@ -188,9 +182,7 @@ vate void displayMenu() {
         System.out.println();
     }
 
-    /**
-     * Handles processing the loaded file content.
-     */
+
     private void handleProcessFile() {
         System.out.println();
         System.out.println(colorize("Processing File...", YELLOW));
@@ -208,9 +200,6 @@ vate void displayMenu() {
         System.out.println();
     }
 
-    /**
-     * Displays computed statistics if available.
-     */
     private void handleViewStatistics() {
         System.out.println();
 
@@ -223,9 +212,7 @@ vate void displayMenu() {
         System.out.println();
     }
 
-    /**
-     * Exports the statistics report to the output file.
-     */
+
     private void handleExportReport() {
         System.out.println();
         System.out.println(colorize("Exporting Report...", YELLOW));
@@ -243,11 +230,7 @@ vate void displayMenu() {
         System.out.println();
     }
 
-    /**
-     * Displays file statistics on the console.
-     *
-     * @param statistics the statistics to display
-     */
+
     private void displayStatistics(FileStatistics statistics) {
         System.out.println(colorize(BORDER, CYAN));
         System.out.println(colorize("FILE STATISTICS", BOLD + CYAN));
@@ -263,9 +246,7 @@ vate void displayMenu() {
         System.out.println();
     }
 
-    /**
-     * Displays the goodbye message.
-     */
+
     private void displayGoodbyeMessage() {
         System.out.println();
         System.out.println(colorize(BORDER, CYAN));
@@ -275,58 +256,31 @@ vate void displayMenu() {
         System.out.println();
     }
 
-    /**
-     * Prints a success message.
-     *
-     * @param message success text
-     */
+
     private void printSuccess(String message) {
         System.out.println(colorize(message, BOLD + GREEN));
     }
 
-    /**
-     * Prints an error message.
-     *
-     * @param message error text
-     */
+
     private void printError(String message) {
         System.out.println(colorize("Error: " + message, RED));
     }
 
-    /**
-     * Prints an informational message.
-     *
-     * @param message info text
-     */
+
     private void printInfo(String message) {
         System.out.println(colorize(message, CYAN));
     }
 
-    /**
-     * Clears invalid scanner input.
-     */
+
     private void clearInvalidInput() {
         scanner.nextLine();
     }
 
-    /**
-     * Applies ANSI color when supported.
-     *
-     * @param text  text to colorize
-     * @param color ANSI color code
-     * @return colorized text
-     */
+
     private String colorize(String text, String color) {
         return color + text + RESET;
     }
 
-    /**
-     * Centers text within a given width.
-     *
-     * @param text  text to center
-     * @param width total width
-     * @return centered text
-     */
     private String centerText(String text, int width) {
         int padding = Math.max(0, (width - text.length()) / 2);
         return " ".repeat(padding) + text;

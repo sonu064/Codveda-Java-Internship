@@ -18,15 +18,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-/**
- * Entry point for the Library Management System console application.
- * <p>
- * Handles user interaction; business logic is delegated to {@link LibraryService}.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
+
 public class Main {
 
     private static final int MENU_ADD_BOOK = 1;
@@ -56,9 +48,6 @@ public class Main {
     private final LibraryService libraryService;
     private final Scanner scanner;
 
-    /**
-     * Constructs the application with dependency injection.
-     */
     public Main() {
         BookDAO bookDAO = new BookDAO();
         UserDAO userDAO = new UserDAO();
@@ -67,19 +56,11 @@ public class Main {
         this.scanner = new Scanner(System.in);
     }
 
-    /**
-     * Application entry point.
-     *
-     * @param args command-line arguments (not used)
-     */
     public static void main(String[] args) {
         Main application = new Main();
         application.run();
     }
 
-    /**
-     * Starts the application loop.
-     */
     public void run() {
         displayWelcomeBanner();
 
@@ -124,9 +105,7 @@ public class Main {
         scanner.close();
     }
 
-    /**
-     * Displays the welcome banner.
-     */
+
     private void displayWelcomeBanner() {
         System.out.println();
         System.out.println(colorize(BORDER, CYAN));
@@ -137,9 +116,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Displays the main menu.
-     */
+
     private void displayMenu() {
         System.out.println(colorize(BORDER, CYAN));
         System.out.println(colorize("  " + APP_TITLE, BOLD));
@@ -160,11 +137,7 @@ public class Main {
         System.out.print(colorize("Choose Option: ", YELLOW));
     }
 
-    /**
-     * Reads and validates a menu option.
-     *
-     * @return valid menu option
-     */
+
     private int readMenuOption() {
         while (true) {
             try {
@@ -183,9 +156,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles adding a new book.
-     */
     private void handleAddBook() {
         System.out.println();
         System.out.println(colorize("--- Add Book ---", BOLD));
@@ -210,9 +180,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles viewing all books.
-     */
+
     private void handleViewBooks() {
         System.out.println();
         System.out.println(colorize("--- View Books ---", BOLD));
@@ -233,9 +201,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles searching books.
-     */
+
     private void handleSearchBook() {
         System.out.println();
         System.out.println(colorize("--- Search Book ---", BOLD));
@@ -258,9 +224,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles updating a book.
-     */
     private void handleUpdateBook() {
         System.out.println();
         System.out.println(colorize("--- Update Book ---", BOLD));
@@ -305,9 +268,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles deleting a book.
-     */
     private void handleDeleteBook() {
         System.out.println();
         System.out.println(colorize("--- Delete Book ---", BOLD));
@@ -336,9 +296,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles user registration.
-     */
+
     private void handleRegisterUser() {
         System.out.println();
         System.out.println(colorize("--- Register User ---", BOLD));
@@ -361,9 +319,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles viewing all users.
-     */
+
     private void handleViewUsers() {
         System.out.println();
         System.out.println(colorize("--- View Users ---", BOLD));
@@ -384,9 +340,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles borrowing a book.
-     */
+
     private void handleBorrowBook() {
         System.out.println();
         System.out.println(colorize("--- Borrow Book ---", BOLD));
@@ -408,9 +362,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles returning a borrowed book.
-     */
+
     private void handleReturnBook() {
         System.out.println();
         System.out.println(colorize("--- Return Book ---", BOLD));
@@ -427,9 +379,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Handles viewing borrow history.
-     */
+
     private void handleBorrowHistory() {
         System.out.println();
         System.out.println(colorize("--- Borrow History ---", BOLD));
@@ -468,11 +418,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Displays books in a formatted table.
-     *
-     * @param books list of books
-     */
+
     private void displayBookTable(List<Book> books) {
         String line = "-".repeat(120);
         System.out.println(line);
@@ -493,11 +439,6 @@ public class Main {
         System.out.println(line);
     }
 
-    /**
-     * Displays users in a formatted table.
-     *
-     * @param users list of users
-     */
     private void displayUserTable(List<User> users) {
         String line = "-".repeat(90);
         System.out.println(line);

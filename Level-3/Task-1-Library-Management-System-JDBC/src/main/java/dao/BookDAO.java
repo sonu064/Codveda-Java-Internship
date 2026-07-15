@@ -13,15 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Data Access Object for book-related database operations.
- * <p>
- * Uses {@link PreparedStatement} exclusively — never {@link Statement}.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
+
 public class BookDAO {
 
     private static final String INSERT_BOOK = """
@@ -70,13 +62,7 @@ public class BookDAO {
             WHERE book_id = ? AND status = 'BORROWED'
             """;
 
-    /**
-     * Inserts a new book into the database.
-     *
-     * @param book the book to insert
-     * @return the generated book ID
-     * @throws DatabaseException if the insert fails
-     */
+
     public int insert(Book book) throws DatabaseException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_BOOK, Statement.RETURN_GENERATED_KEYS)) {
@@ -104,12 +90,7 @@ public class BookDAO {
         }
     }
 
-    /**
-     * Returns all books from the database.
-     *
-     * @return list of books
-     * @throws DatabaseException if the query fails
-     */
+
     public List<Book> findAll() throws DatabaseException {
         List<Book> books = new ArrayList<>();
         try (Connection connection = DBConnection.getConnection();
@@ -125,13 +106,7 @@ public class BookDAO {
         }
     }
 
-    /**
-     * Finds a book by ID.
-     *
-     * @param bookId the book ID
-     * @return optional book
-     * @throws DatabaseException if the query fails
-     */
+
     public Optional<Book> findById(int bookId) throws DatabaseException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID)) {
@@ -148,13 +123,7 @@ public class BookDAO {
         }
     }
 
-    /**
-     * Searches books by title, author, category, or ISBN.
-     *
-     * @param keyword search keyword
-     * @return matching books
-     * @throws DatabaseException if the query fails
-     */
+
     public List<Book> search(String keyword) throws DatabaseException {
         List<Book> books = new ArrayList<>();
         String pattern = "%" + keyword.trim() + "%";
@@ -178,12 +147,7 @@ public class BookDAO {
         }
     }
 
-    /**
-     * Updates an existing book.
-     *
-     * @param book the book with updated fields
-     * @throws DatabaseException if the update fails
-     */
+
     public void update(Book book) throws DatabaseException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_BOOK)) {
@@ -205,12 +169,7 @@ public class BookDAO {
         }
     }
 
-    /**
-     * Deletes a book by ID.
-     *
-     * @param bookId the book ID
-     * @throws DatabaseException if the delete fails
-     */
+
     public void delete(int bookId) throws DatabaseException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_BOOK)) {
@@ -225,13 +184,6 @@ public class BookDAO {
         }
     }
 
-    /**
-     * Checks whether an ISBN already exists.
-     *
-     * @param isbn the ISBN to check
-     * @return {@code true} if duplicate exists
-     * @throws DatabaseException if the query fails
-     */
     public boolean existsByIsbn(String isbn) throws DatabaseException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(EXISTS_BY_ISBN)) {
@@ -245,14 +197,7 @@ public class BookDAO {
         }
     }
 
-    /**
-     * Decrements available quantity within an existing connection (for transactions).
-     *
-     * @param connection active connection
-     * @param bookId     book ID
-     * @return {@code true} if a copy was decremented
-     * @throws SQLException if the update fails
-     */
+
     public boolean decrementAvailable(Connection connection, int bookId) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(DECREMENT_AVAILABLE)) {
             statement.setInt(1, bookId);
@@ -260,13 +205,6 @@ public class BookDAO {
         }
     }
 
-    /**
-     * Increments available quantity within an existing connection (for transactions).
-     *
-     * @param connection active connection
-     * @param bookId     book ID
-     * @throws SQLException if the update fails
-     */
     public void incrementAvailable(Connection connection, int bookId) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INCREMENT_AVAILABLE)) {
             statement.setInt(1, bookId);
@@ -274,13 +212,7 @@ public class BookDAO {
         }
     }
 
-    /**
-     * Counts active borrows for a book.
-     *
-     * @param bookId book ID
-     * @return active borrow count
-     * @throws DatabaseException if the query fails
-     */
+
     public int countActiveBorrows(int bookId) throws DatabaseException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(COUNT_ACTIVE_BORROWS)) {
@@ -297,13 +229,6 @@ public class BookDAO {
         }
     }
 
-    /**
-     * Maps a ResultSet row to a Book object.
-     *
-     * @param resultSet the result set positioned at a row
-     * @return mapped book
-     * @throws SQLException if column access fails
-     */
     private Book mapRow(ResultSet resultSet) throws SQLException {
         return new Book(
                 resultSet.getInt("book_id"),
@@ -315,13 +240,6 @@ public class BookDAO {
                 resultSet.getInt("available_quantity"));
     }
 
-    /**
-     * Maps SQLException to DatabaseException with duplicate detection.
-     *
-     * @param exception the SQL exception
-     * @param operation operation description
-     * @return mapped database exception
-     */
     private DatabaseException mapSqlException(SQLException exception, String operation) {
         if (exception.getMessage() != null && exception.getMessage().contains("Duplicate")) {
             return new DatabaseException("Duplicate ISBN detected.", exception);

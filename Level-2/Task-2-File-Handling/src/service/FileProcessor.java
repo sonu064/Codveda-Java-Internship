@@ -14,16 +14,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Service layer for reading, processing, and writing text files.
- * <p>
- * Uses {@link BufferedReader}/{@link FileReader} for input and
- * {@link BufferedWriter}/{@link FileWriter} for output.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
+
 public class FileProcessor {
 
     private static final String VOWELS = "aeiouAEIOU";
@@ -31,20 +22,13 @@ public class FileProcessor {
     private final List<String> fileLines;
     private FileStatistics statistics;
 
-    /**
-     * Creates a new file processor with an empty line buffer.
-     */
+
     public FileProcessor() {
         this.fileLines = new ArrayList<>();
         this.statistics = null;
     }
 
-    /**
-     * Reads all lines from the specified input file.
-     *
-     * @param inputFile path to the input text file
-     * @throws FileProcessingException if the file cannot be read
-     */
+
     public void readFile(Path inputFile) throws FileProcessingException {
         validateInputFile(inputFile);
         fileLines.clear();
@@ -74,13 +58,6 @@ public class FileProcessor {
         }
     }
 
-    /**
-     * Processes loaded file content and computes statistics.
-     *
-     * @param sourceFileName display name for the report
-     * @return computed {@link FileStatistics}
-     * @throws FileProcessingException if no file has been loaded
-     */
     public FileStatistics processFile(String sourceFileName) throws FileProcessingException {
         if (fileLines.isEmpty()) {
             throw new FileProcessingException("No file content loaded. Please read a file first.");
@@ -133,15 +110,7 @@ public class FileProcessor {
         return stats;
     }
 
-    /**
-     * Writes the statistics report to the specified output file.
-     * <p>
-     * The parent output directory is created automatically if it does not exist.
-     * </p>
-     *
-     * @param outputFile path to the output file
-     * @throws FileProcessingException if writing fails or statistics are unavailable
-     */
+
     public void writeReport(Path outputFile) throws FileProcessingException {
         if (statistics == null) {
             throw new FileProcessingException("No statistics available. Please process the file first.");
@@ -172,48 +141,24 @@ public class FileProcessor {
         }
     }
 
-    /**
-     * Returns the current statistics, or {@code null} if not yet processed.
-     *
-     * @return file statistics
-     */
+
     public FileStatistics getStatistics() {
         return statistics;
     }
 
-    /**
-     * Checks whether file content has been loaded.
-     *
-     * @return {@code true} if lines are loaded
-     */
     public boolean isFileLoaded() {
         return !fileLines.isEmpty();
     }
 
-    /**
-     * Checks whether statistics have been computed.
-     *
-     * @return {@code true} if statistics exist
-     */
     public boolean hasStatistics() {
         return statistics != null;
     }
 
-    /**
-     * Returns the number of lines currently loaded in memory.
-     *
-     * @return loaded line count
-     */
+
     public int getLoadedLineCount() {
         return fileLines.size();
     }
 
-    /**
-     * Validates the input file before reading.
-     *
-     * @param inputFile path to validate
-     * @throws FileProcessingException if validation fails
-     */
     private void validateInputFile(Path inputFile) throws FileProcessingException {
         if (inputFile == null) {
             throw new FileProcessingException("Invalid file path provided.");
@@ -229,12 +174,6 @@ public class FileProcessor {
         }
     }
 
-    /**
-     * Determines whether a character is a vowel.
-     *
-     * @param character the character to check
-     * @return {@code true} if vowel
-     */
     private boolean isVowel(char character) {
         return VOWELS.indexOf(character) >= 0;
     }

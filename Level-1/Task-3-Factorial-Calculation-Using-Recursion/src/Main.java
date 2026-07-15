@@ -8,16 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-/**
- * Entry point for the Factorial Calculator console application.
- * <p>
- * Handles user interface, input/output, exception handling, and session history.
- * Business logic is delegated to {@link FactorialCalculator}; validation to {@link InputValidator}.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
+
 public class Main {
 
     private static final String APP_TITLE = "FACTORIAL CALCULATOR";
@@ -37,28 +28,17 @@ public class Main {
     private final List<String> calculationHistory;
     private final Scanner scanner;
 
-    /**
-     * Constructs the application with initialized dependencies.
-     */
     public Main() {
         this.factorialCalculator = new FactorialCalculator();
         this.calculationHistory = new ArrayList<>();
         this.scanner = new Scanner(System.in);
     }
 
-    /**
-     * Application entry point.
-     *
-     * @param args command-line arguments (not used)
-     */
+
     public static void main(String[] args) {
         Main application = new Main();
         application.run();
     }
-
-    /**
-     * Starts the factorial calculator application loop.
-     */
     public void run() {
         displayWelcomeBanner();
         boolean running = true;
@@ -74,9 +54,6 @@ public class Main {
         scanner.close();
     }
 
-    /**
-     * Displays the welcome banner.
-     */
     private void displayWelcomeBanner() {
         System.out.println();
         System.out.println(colorize(BORDER, CYAN));
@@ -87,11 +64,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Reads a non-negative integer from the user with validation and exception handling.
-     *
-     * @return a valid non-negative integer
-     */
     private int readNonNegativeInteger() {
         while (true) {
             try {
@@ -112,11 +84,6 @@ public class Main {
         }
     }
 
-    /**
-     * Calculates factorial and displays the result with recursion steps.
-     *
-     * @param number the non-negative integer
-     */
     private void calculateAndDisplay(int number) {
         System.out.println();
         System.out.println(colorize("Calculating...", MAGENTA));
@@ -132,9 +99,7 @@ public class Main {
         }
     }
 
-    /**
-     * Displays the recursive calculation steps from the last computation.
-     */
+
     private void displayRecursionSteps() {
         if (!factorialCalculator.hasRecursionSteps()) {
             return;
@@ -147,31 +112,19 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Displays the formatted factorial result.
-     *
-     * @param number the input number
-     * @param result the computed factorial
-     */
+
     private void displayResult(int number, BigInteger result) {
         System.out.println(colorize(String.format(Locale.US, "%d! = %s", number, result), BOLD + GREEN));
         System.out.println(colorize(String.format(Locale.US, "Factorial of %d = %s", number, result), GREEN));
         System.out.println();
     }
 
-    /**
-     * Records the calculation in session history.
-     *
-     * @param number the input number
-     * @param result the computed factorial
-     */
+
     private void recordHistory(int number, BigInteger result) {
         calculationHistory.add(String.format(Locale.US, "%d! = %s", number, result));
     }
 
-    /**
-     * Displays the calculation history for the current session.
-     */
+
     private void displayHistory() {
         if (calculationHistory.isEmpty()) {
             return;
@@ -184,11 +137,7 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Prompts whether the user wants to calculate another factorial.
-     *
-     * @return {@code true} to continue; {@code false} to exit
-     */
+
     private boolean promptContinue() {
         while (true) {
             System.out.print(colorize("Would you like to calculate another factorial? (Y/N): ", YELLOW));
@@ -208,9 +157,6 @@ public class Main {
         }
     }
 
-    /**
-     * Displays the goodbye message when the application exits.
-     */
     private void displayGoodbyeMessage() {
         System.out.println();
         System.out.println(colorize(BORDER, CYAN));
@@ -220,40 +166,21 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Prints an error message to the console.
-     *
-     * @param message the error message
-     */
     private void printError(String message) {
         System.out.println(colorize("Error: " + message, RED));
     }
 
-    /**
-     * Clears invalid input from the scanner buffer after an input mismatch.
-     */
+
     private void clearInvalidInput() {
         scanner.nextLine();
     }
 
-    /**
-     * Applies ANSI color codes when the terminal supports them.
-     *
-     * @param text  the text to colorize
-     * @param color the ANSI color prefix
-     * @return colorized or plain text
-     */
+
     private String colorize(String text, String color) {
         return color + text + RESET;
     }
 
-    /**
-     * Centers text within a given width.
-     *
-     * @param text  the text to center
-     * @param width the total line width
-     * @return centered text
-     */
+
     private String centerText(String text, int width) {
         int padding = Math.max(0, (width - text.length()) / 2);
         return " ".repeat(padding) + text;

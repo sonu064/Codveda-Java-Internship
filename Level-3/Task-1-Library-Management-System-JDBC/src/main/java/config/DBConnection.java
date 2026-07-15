@@ -6,26 +6,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Manages JDBC database connections for the Library Management System.
- * <p>
- * Provides a centralized connection factory using try-with-resources pattern
- * at the call site. Credentials should be configured before running.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
+
 public final class DBConnection {
 
-    /**
-     * JDBC URL with MySQL 8-compatible parameters.
-     * <ul>
-     *   <li>{@code allowPublicKeyRetrieval=true} — required for caching_sha2_password</li>
-     *   <li>{@code useSSL=false} — avoids SSL handshake failures on local setups</li>
-     *   <li>{@code serverTimezone=UTC} — avoids timezone conversion errors</li>
-     * </ul>
-     */
+
     private static final String DB_URL =
             "jdbc:mysql://127.0.0.1:3306/library_management"
                     + "?allowPublicKeyRetrieval=true"
@@ -49,19 +33,11 @@ public final class DBConnection {
         }
     }
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
     private DBConnection() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated.");
     }
 
-    /**
-     * Returns a new database connection.
-     *
-     * @return active JDBC connection
-     * @throws DatabaseException if the connection cannot be established
-     */
+
     public static Connection getConnection() throws DatabaseException {
         try {
             return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
@@ -70,11 +46,7 @@ public final class DBConnection {
         }
     }
 
-    /**
-     * Tests the database connection on application startup.
-     *
-     * @throws DatabaseException if the connection test fails
-     */
+
     public static void testConnection() throws DatabaseException {
         try (Connection connection = getConnection()) {
             if (!connection.isValid(5)) {
@@ -86,12 +58,6 @@ public final class DBConnection {
         }
     }
 
-    /**
-     * Builds a detailed failure message including SQLState and error code.
-     *
-     * @param exception the SQLException
-     * @return detailed message for console debugging
-     */
     private static String buildConnectionFailureMessage(SQLException exception) {
         return "Failed to connect to database."
                 + " URL=" + DB_URL

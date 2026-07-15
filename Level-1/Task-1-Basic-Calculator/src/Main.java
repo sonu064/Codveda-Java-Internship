@@ -7,16 +7,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-/**
- * Entry point for the Basic Calculator console application.
- * <p>
- * Handles user interface, input/output, exception handling, and session history.
- * Business logic is delegated to {@link Calculator}; validation to {@link InputValidator}.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
 public class Main {
 
     private static final int MENU_ADDITION = 1;
@@ -45,28 +35,17 @@ public class Main {
     private final List<String> calculationHistory;
     private final Scanner scanner;
 
-    /**
-     * Constructs the application with initialized dependencies.
-     */
     public Main() {
         this.calculator = new Calculator();
         this.calculationHistory = new ArrayList<>();
         this.scanner = new Scanner(System.in);
     }
 
-    /**
-     * Application entry point.
-     *
-     * @param args command-line arguments (not used)
-     */
     public static void main(String[] args) {
         Main application = new Main();
         application.run();
     }
 
-    /**
-     * Starts the calculator application loop.
-     */
     public void run() {
         displayWelcomeBanner();
         boolean running = true;
@@ -88,10 +67,6 @@ public class Main {
         displayGoodbyeMessage();
         scanner.close();
     }
-
-    /**
-     * Displays the welcome banner.
-     */
     private void displayWelcomeBanner() {
         System.out.println();
         System.out.println(colorize(BORDER, CYAN));
@@ -102,9 +77,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Displays the operation menu.
-     */
     private void displayMenu() {
         System.out.println(colorize(BORDER, CYAN));
         System.out.println(colorize("      " + APP_TITLE, BOLD));
@@ -123,11 +95,6 @@ public class Main {
         System.out.print(colorize("Choose Option: ", YELLOW));
     }
 
-    /**
-     * Reads and validates a menu option from the user.
-     *
-     * @return a valid menu option between 1 and 9
-     */
     private int readMenuOption() {
         while (true) {
             try {
@@ -148,11 +115,6 @@ public class Main {
         }
     }
 
-    /**
-     * Dispatches the selected operation to the appropriate handler.
-     *
-     * @param menuOption the validated menu option
-     */
     private void processOperation(int menuOption) {
         try {
             switch (menuOption) {
@@ -177,13 +139,6 @@ public class Main {
         }
     }
 
-    /**
-     * Performs a binary arithmetic operation with two operands.
-     *
-     * @param operationName display name of the operation
-     * @param symbol        mathematical symbol for history formatting
-     * @param operation     the computation to execute
-     */
     private void performBinaryOperation(String operationName, String symbol,
                                         BinaryOperation operation) {
         System.out.println();
@@ -197,14 +152,6 @@ public class Main {
                 formatBinaryHistory(firstOperand, symbol, secondOperand, result),
                 result);
     }
-
-    /**
-     * Performs division or modulus with divisor validation.
-     *
-     * @param operationName display name of the operation
-     * @param symbol        mathematical symbol for history formatting
-     * @param operation     the computation to execute
-     */
     private void performDivisionOrModulus(String operationName, String symbol,
                                           BinaryOperation operation) {
         System.out.println();
@@ -224,9 +171,6 @@ public class Main {
                 result);
     }
 
-    /**
-     * Performs square root with operand validation.
-     */
     private void performSquareRoot() {
         System.out.println();
         System.out.println(colorize("--- Square Root ---", BOLD));
@@ -244,9 +188,6 @@ public class Main {
                 result);
     }
 
-    /**
-     * Performs percentage calculation.
-     */
     private void performPercentage() {
         System.out.println();
         System.out.println(colorize("--- Percentage ---", BOLD));
@@ -261,12 +202,6 @@ public class Main {
                 result);
     }
 
-    /**
-     * Reads a valid double value from the user.
-     *
-     * @param prompt the input prompt message
-     * @return the parsed double value
-     */
     private double readDouble(String prompt) {
         while (true) {
             try {
@@ -281,12 +216,6 @@ public class Main {
         }
     }
 
-    /**
-     * Records a calculation in history and prints the formatted result.
-     *
-     * @param historyEntry the history record string
-     * @param result       the computed result
-     */
     private void recordAndDisplayResult(String historyEntry, double result) {
         calculationHistory.add(historyEntry);
         System.out.println();
@@ -294,9 +223,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Displays the calculation history for the current session.
-     */
     private void displayHistory() {
         if (calculationHistory.isEmpty()) {
             return;
@@ -309,11 +235,6 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Prompts the user whether to perform another calculation.
-     *
-     * @return {@code true} to continue; {@code false} to exit
-     */
     private boolean promptContinue() {
         while (true) {
             System.out.print(colorize("Perform another calculation? (Y/N): ", YELLOW));
@@ -333,9 +254,6 @@ public class Main {
         }
     }
 
-    /**
-     * Displays the goodbye message when the application exits.
-     */
     private void displayGoodbyeMessage() {
         System.out.println();
         System.out.println(colorize(BORDER, CYAN));
@@ -345,51 +263,23 @@ public class Main {
         System.out.println();
     }
 
-    /**
-     * Prints an error message to the console.
-     *
-     * @param message the error message
-     */
     private void printError(String message) {
         System.out.println(colorize("Error: " + message, RED));
     }
 
-    /**
-     * Clears invalid input from the scanner buffer after an input mismatch.
-     */
     private void clearInvalidInput() {
         scanner.nextLine();
     }
 
-    /**
-     * Applies ANSI color codes when supported.
-     *
-     * @param text  the text to colorize
-     * @param color the ANSI color prefix
-     * @return colorized text or plain text if ANSI is unsupported
-     */
     private String colorize(String text, String color) {
         return color + text + RESET;
     }
 
-    /**
-     * Centers text within a given width.
-     *
-     * @param text  the text to center
-     * @param width the total line width
-     * @return centered text
-     */
     private String centerText(String text, int width) {
         int padding = Math.max(0, (width - text.length()) / 2);
         return " ".repeat(padding) + text;
     }
 
-    /**
-     * Formats a number for consistent display, removing unnecessary trailing zeros.
-     *
-     * @param value the number to format
-     * @return formatted number string
-     */
     private String formatNumber(double value) {
         if (value == (long) value) {
             return String.format(Locale.US, "%d", (long) value);
@@ -397,15 +287,6 @@ public class Main {
         return String.format(Locale.US, "%.4f", value).replaceAll("0+$", "").replaceAll("\\.$", "");
     }
 
-    /**
-     * Builds a history entry for binary operations.
-     *
-     * @param firstOperand  the first operand
-     * @param symbol        the operation symbol
-     * @param secondOperand the second operand
-     * @param result        the computed result
-     * @return formatted history string
-     */
     private String formatBinaryHistory(double firstOperand, String symbol,
                                        double secondOperand, double result) {
         return String.format(Locale.US, "%s %s %s = %s",
@@ -415,18 +296,8 @@ public class Main {
                 formatNumber(result));
     }
 
-    /**
-     * Functional interface for binary calculator operations.
-     */
     @FunctionalInterface
     private interface BinaryOperation {
-        /**
-         * Applies a binary operation to two operands.
-         *
-         * @param firstOperand  the first operand
-         * @param secondOperand the second operand
-         * @return the computed result
-         */
         double apply(double firstOperand, double secondOperand);
     }
 }
