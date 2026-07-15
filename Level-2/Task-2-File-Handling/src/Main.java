@@ -12,15 +12,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Entry point for the File Handling System console application.
- * <p>
- * Handles user interaction; file operations are delegated to {@link FileProcessor}.
- * </p>
- *
- * @author Sonu Singh
- * @version 1.0
- */
+
 public class Main {
 
     private static final int MENU_READ = 1;
@@ -53,13 +45,6 @@ public class Main {
     private final Path inputFilePath;
     private final Path outputFilePath;
 
-    /**
-     * Constructs the application with initialized dependencies.
-     * <p>
-     * Resolves the project root automatically so file paths work regardless of
-     * the directory the application is launched from.
-     * </p>
-     */
     public Main() {
         this.fileProcessor = new FileProcessor();
         this.scanner = new Scanner(System.in);
@@ -68,17 +53,6 @@ public class Main {
         this.outputFilePath = projectRoot.resolve(OUTPUT_DIRECTORY).resolve(OUTPUT_FILE_NAME);
     }
 
-    /**
-     * Resolves the project root directory automatically.
-     * <p>
-     * Searches upward from both the current working directory and the location of
-     * the compiled classes, looking for a directory that contains the project's
-     * {@code src} and {@code input} folders. This makes the application robust to
-     * being launched from VS Code, IntelliJ, a terminal, or Cursor.
-     * </p>
-     *
-     * @return the detected project root, or the working directory as a fallback
-     */
     private Path resolveProjectRoot() {
         List<Path> startingPoints = new ArrayList<>();
         startingPoints.add(Paths.get("").toAbsolutePath());
@@ -101,13 +75,6 @@ public class Main {
         return Paths.get("").toAbsolutePath();
     }
 
-    /**
-     * Walks up the directory tree looking for the project root marker folders.
-     *
-     * @param start the directory to begin searching from
-     * @return the first ancestor containing both {@code src} and {@code input}
-     *         folders, or {@code null} if none is found
-     */
     private Path searchUpwardForRoot(Path start) {
         Path current = start;
         while (current != null) {
@@ -121,19 +88,13 @@ public class Main {
         return null;
     }
 
-    /**
-     * Application entry point.
-     *
-     * @param args command-line arguments (not used)
-     */
+
     public static void main(String[] args) {
         Main application = new Main();
         application.run();
     }
 
-    /**
-     * Starts the main application loop.
-     */
+
     public void run() {
         displayWelcomeBanner();
         boolean running = true;
@@ -156,9 +117,7 @@ public class Main {
         scanner.close();
     }
 
-    /**
-     * Displays the welcome banner.
-     */
+
     private void displayWelcomeBanner() {
         System.out.println();
         System.out.println(colorize(BORDER, CYAN));
@@ -170,9 +129,7 @@ public class Main {
     }
 
     /**
-     * Displays the main menu.
-     */
-    private void displayMenu() {
+vate void displayMenu() {
         System.out.println(colorize(BORDER, CYAN));
         System.out.println(colorize("  " + APP_TITLE, BOLD));
         System.out.println(colorize(BORDER, CYAN));
