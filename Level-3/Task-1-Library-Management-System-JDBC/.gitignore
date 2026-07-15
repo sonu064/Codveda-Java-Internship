@@ -1,0 +1,23 @@
+# Compiled output
+target/
+out/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Maven
+pom.xml.tag
+pom.xml.versionsBackup

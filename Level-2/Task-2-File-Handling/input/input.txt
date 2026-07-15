@@ -1,0 +1,22 @@
+Java Development Internship at Codveda Technologies
+
+File Handling is an essential skill for every Java developer.
+This project demonstrates reading and writing text files using Core Java.
+
+A software engineer must understand:
+- BufferedReader and FileReader for efficient reading
+- BufferedWriter and FileWriter for efficient writing
+- Exception handling for real-world file operations
+- Clean architecture with separation of concerns
+
+The quick brown fox jumps over the lazy dog.
+Learning OOP principles helps build maintainable applications.
+
+Contact: intern@codveda.com
+Phone: 9876543210
+Year: 2026
+
+Empty line below this sentence.
+
+
+End of sample input file.

@@ -1,0 +1,16 @@
+=========================================
+FILE STATISTICS
+=========================================
+
+Source File        : input.txt
+Total Lines        : 22
+Total Words        : 92
+Characters         : 642
+Empty Lines        : 7
+Vowels             : 204
+Consonants         : 330
+Digits             : 14
+
+Report Generated Successfully.
+Output saved to:
+C:\Users\singh\Documents\Sonu_Singh_Codveda_Java_Internship_Level_1\Level-2\Task-2-File-Handling\output\output.txt
