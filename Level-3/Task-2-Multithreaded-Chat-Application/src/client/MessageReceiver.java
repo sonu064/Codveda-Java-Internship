@@ -19,7 +19,7 @@ public class MessageReceiver implements Runnable {
         this.onDisconnect = onDisconnect;
         this.listening = true;
     }
-/
+
     @Override
     public void run() {
         try {
